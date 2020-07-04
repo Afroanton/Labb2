@@ -141,10 +141,19 @@
     <ClCompile Include="Datageneration.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sorting_data.cpp" />
+    <ClCompile Include="time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Datageneration.h" />
     <ClInclude Include="Sorting_data.h" />
+    <ClInclude Include="time.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="insertion_sort.data" />
+    <None Include="quicksort.data" />
+    <None Include="quicksort_mot.data" />
+    <None Include="selection_sort.data" />
+    <None Include="std_sort.data" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

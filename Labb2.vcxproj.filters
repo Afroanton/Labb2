@@ -24,6 +24,9 @@
     <ClCompile Include="Sorting_data.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="time.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Datageneration.h">
@@ -32,5 +35,25 @@
     <ClInclude Include="Sorting_data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="insertion_sort.data">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="quicksort.data">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="quicksort_mot.data">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="selection_sort.data">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="std_sort.data">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
