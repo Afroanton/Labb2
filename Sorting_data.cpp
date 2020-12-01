@@ -2,7 +2,7 @@
 #include <algorithm>
 
 
-//quicksort algorithm
+
 
 
 void insertion_sort(std::vector<int>* vector)
@@ -23,8 +23,6 @@ void insertion_sort(std::vector<int>* vector)
 
 	}
 }
-
-
 
 void selection_sort(std::vector<int>* vector)
 {
@@ -52,8 +50,8 @@ TailRecurse:
 	auto const N = std::distance(first, last);
 	if (N > 1)
 	{
-		auto pivot = last-1;
-		auto middel = partition(first,last,pivot);
+		auto pivot = last - 1;
+		auto middel = partition(first, last, pivot);
 		if (middel < first + (last - first) / 2)
 		{
 			quicksort(first, middel);
@@ -66,9 +64,34 @@ TailRecurse:
 			last = middel;
 			goto TailRecurse;
 		}
-		
+
 	}
 	
+}
+
+void quicksort(int* first, int* last)
+{
+TailRecurse:
+
+
+	if (first != last)
+	{
+		auto pivot = last - 1;
+		auto middel = partition(first, last, pivot);
+		if (middel < first + (last - first) / 2)
+		{
+			quicksort(first, middel);
+			first = middel + 1;
+			goto TailRecurse;
+		}
+		else
+		{
+			quicksort(middel + 1, last);
+			last = middel;
+			goto TailRecurse;
+		}
+
+	}
 }
 
 void quicksort_mot(std::vector<int>::iterator first, std::vector<int>::iterator last)
@@ -101,17 +124,47 @@ TailRecurse:
 std::vector<int>::iterator partition(std::vector<int>::iterator first, std::vector<int>::iterator last, std::vector<int>::iterator pivot)
 {
 	
-	for (auto it = first; it < pivot; it++)
+	last--;
+	while (true)
 	{
-		if (*it < *pivot)
+		while (*first < *pivot && first < last)
 		{
-			std::swap(*it, *first);
 			first++;
 		}
+		while (*last >= *pivot && first < last)
+		{
+			last--;
+		}
+		std::swap(*first, *last);
+		if (first >= last)
+		{
+			std::swap(*first, *pivot);
+			return first;
+		}
 	}
-	std::swap(*first, *pivot);
-	return first;
 
+}
+
+int* partition(int* first, int* last, int* pivot)
+{
+	last--;
+	while (true)
+	{
+		while (*first < *pivot && first < last)
+		{
+			first++;
+		}
+		while (*last >= *pivot && first < last)
+		{
+			last--;
+		}
+		std::swap(*first, *last);
+		if (first >= last)
+		{
+			std::swap(*first, *pivot);
+			return first;
+		}
+	}
 }
 
 std::vector<int>::iterator midian_of_three(std::vector<int>::iterator first, std::vector<int>::iterator last)
@@ -119,15 +172,17 @@ std::vector<int>::iterator midian_of_three(std::vector<int>::iterator first, std
 	auto mid = first + (last - first) / 2;
 	if (*first > *last && *first < *mid || *first > *mid && *first < *last)
 	{
-		return first;
+		std::swap(*first, *last);
 	}
-	else if(*last > *first && *last < *mid || *last > * mid && *last < *first)
+	else if (*last > *first && *last < *mid || *last > *mid && *last < *first)
 	{
-		return last;
+
 	}
 	else
 	{
-		return mid;
+		std::swap(*mid, *last);
 	}
+
+	return last;
 }
 

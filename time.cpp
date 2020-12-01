@@ -16,7 +16,7 @@ void time_all(std::vector<int>*(*generate_data_funk)(int size),int start, int en
 	auto sort_funk4 = [](std::vector<int>* random) {quicksort_mot(random->begin(), random->end()); };
 	auto sort_funk5 = [](std::vector<int>* random) {std::sort(random->begin(), random->end()); };
 	
-	for (int N = start; N <= end; N+=1500)
+	for (int N = start; N <= end; N+=1000)
 	{
 		auto container = generate_data_funk(N);
 		time_calculation(sort_funk1, container, save_data1);
@@ -36,19 +36,24 @@ void time_calculation(void(*sort_funk)(std::vector<int>*),std::vector<int>* cont
 	std::ofstream file;
 	file.open(save_data,std::ios::app);
 
-	int measurement_points = 5;
-	float sum_time = 0;
-	float mean_time;
-	float s;
+	double measurement_points = 5;
+	double sqrt_time = 0;
+	double sum_time = 0;
+	double mean_time;
+	double s;
 	
 	for (int i = 0; i < measurement_points; i++)
 	{
-		sum_time =+ time(sort_funk, container);
+		auto current_time = time(sort_funk, container);
+		sum_time += current_time;
+		sqrt_time += pow(current_time, 2);
 	}
-	
 	mean_time = sum_time / measurement_points;
-	s = sqrt((sum_time - measurement_points * pow(mean_time, 2)) / (measurement_points - 1));
+	s = sqrt((sqrt_time - (measurement_points * pow(mean_time, 2))) / (measurement_points - 1));
+	
 
+		
+	
 	file << container->size() << " " << mean_time << " " << s << "\n";
 	file.close();
 
@@ -65,25 +70,13 @@ float time(void(*sort)(std::vector<int>*), std::vector<int>* container)
 	auto end = std::chrono::steady_clock::now();
 	time += (end - start);
 
+	/*
+	* if (std::is_sorted(copy_container.begin(), copy_container.end()))
+	{
+		std::cout << "sorted!" << "\n";
+	}
+	*/
 	
 	return time.count();
 }
 
-/*
-void time_intervall(void(*sort_funk)(std::vector<int>*), std::vector<int>* (*generate_data_funk)(int size),int start,int end,std::string save_data)
-{
-	std::ofstream file;
-	file.open(save_data);
-	int measurement_points = 6;
-	int distans = (end - start) / measurement_points;
-	for (int N = start; N <= end; N += distans)
-	{
-		std::vector<int>* container = generate_data_funk(N);
-		std::chrono::duration<double> t = time(sort_funk, container);
-		delete container;
-		file << N << "     " << t.count() << std::endl;
-
-	}
-	file.close();
-}
-*/

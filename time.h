@@ -2,6 +2,7 @@
 #include <chrono>
 #include <iostream>
 #include <fstream>
+#include <cmath>
 #include "Datageneration.h"
 #include "Sorting_data.h"
 
